@@ -1,0 +1,9 @@
+<h1>StaticPages#home</h1>
+<p>Find me in app/views/static_pages/home.html.erb</p>
+
+<%# <% game.start %>
+<%= form_with(url: url_for(action: "guess", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
+    <%= form.label :guess, "Your Guess:" %>
+    <%= form.text_field :guess %>
+    <%= form.submit "Submit" %>
+<% end %>

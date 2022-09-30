@@ -1,4 +1,4 @@
-require_relative 'state'
+require 'state'
 
 class Game
     attr_accessor :state
@@ -17,10 +17,10 @@ class Game
         end
     end
 
-    def self.start
+    def self.start(state = false)
         game = Game.new
 
-        game.state = State.new TARGET_WORDS.sample.downcase
+        game.state = state ? State.from_json(state) : State.new(TARGET_WORDS.sample.downcase)
         game
     end
 
@@ -49,19 +49,19 @@ class Game
     def check_guess(guess, target)
         guess_letters = guess.split('')
         target_letters = target.split('')
-        guess_letters.each_with_index do |letter, _index|
-            correct_letter_and_position = target_letters.include?(letter) && guess_letters.find_index(letter) == target_letters.find_index(letter)
-            correct_letter_wrong_position = target_letters.include?(letter) && guess_letters.find_index(letter) != target_letters.find_index(letter)
-
-            if correct_letter_and_position 
-                2
-            else
-                correct_letter_wrong_position ? 1 : 0 
-            end
+        guess_letters.each_with_index.map do |letter, index|
+          correct_letter_and_position = target_letters.include?(letter) && letter == target_letters[index]
+          correct_letter_wrong_position = target_letters.include?(letter) && letter != target_letters[index]
+    
+          if correct_letter_and_position
+            2
+          else
+            correct_letter_wrong_position ? 1 : 0
+          end
         end
     end
 
     def valid?(guess)
-        guess.length == @state.target_words.length
+        guess.length == @state.target_word.length
     end
 end

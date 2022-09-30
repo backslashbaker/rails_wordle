@@ -1,4 +1,5 @@
 require_relative "boot"
+require 'securerandom'
 
 require "rails/all"
 
@@ -18,5 +19,6 @@ module WordleRails
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.state_secret = SecureRandom.random_bytes(32)
   end
 end

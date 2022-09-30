@@ -4,7 +4,7 @@ require_relative '../../lib/messages'
 
 
 class StaticPagesController < ApplicationController
-  def home
+  def home(params)
     game = Game.start
 
     loop do
@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
     rescue Game::InvalidWord => e
       e
       return Messages.incorrect_word_length
-    rescue Game::IncorrectWordLength => e
+    rescue Game::IncorrectWord => e
       outcome = e.outcome.each_with_index do |score, index|
         case score
         when 0

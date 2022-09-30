@@ -7,6 +7,6 @@ class State
     end
 
     def won?
-        @guesses.last = @target_word
+        @guesses.last == @target_word
     end
 end

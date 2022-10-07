@@ -27,7 +27,7 @@ class Messages
     'Sorry you ran out lives'
   end
 
-  def self.incorrect_word_length
-    'Your guess was not 5 letters long. Try again'
+  def self.incorrect_word_length(word_length)
+    "Your guess was not #{word_length} letters long. Try again"
   end
 end

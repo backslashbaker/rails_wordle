@@ -1,9 +1,14 @@
 require 'state'
+require 'words'
 
 class Game
     attr_accessor :state
 
-    TARGET_WORDS = %w[About Alert Argue Beach Above Found Guess Doubt Every Frame Guest Dozen Exact Frank Guide Draft Exist Fraud Happy Drama Extra Fresh Harry Drawn Faith Front Heart Dream].freeze
+    DIFFICULTIES = {
+        :hard => 10,
+        :medium => 5,
+        :easy => 3
+    }
 
     class InvalidWord < StandardError
     end
@@ -17,10 +22,17 @@ class Game
         end
     end
 
-    def self.start(state = false)
+    def self.start(difficulty = :medium)
         game = Game.new
 
-        game.state = state ? State.from_json(state) : State.new(TARGET_WORDS.sample.downcase)
+        game.state = State.new Words.get DIFFICULTIES[difficulty]
+        game
+    end
+
+    def self.resume(state)
+        game = Game.new
+
+        game.state = State.from_json state 
         game
     end
 

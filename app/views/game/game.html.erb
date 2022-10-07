@@ -1,5 +1,10 @@
+<%= @game.state.to_json %>
+
 <% if @game.won? %>
     <h1>You've won, the correct word was <%= @guess %></h1>
+    <a href='/'>play again</a>
+    <% elsif @game.finished? %>
+    <h1>You've lost, the correct word was <%= @game.state.target_word %></h1>
     <a href='/'>play again</a>
 <% else %>
 

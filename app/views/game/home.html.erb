@@ -1,9 +1,12 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<h1>Welcome to Wordle</h1>
+
 
 <%# <% game.start %>
-<%= form_with(url: url_for(action: "guess", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
-    <%= form.label :guess, "Your Guess:" %>
-    <%= form.text_field :guess %>
-    <%= form.submit "Submit" %>
+<%= form_with(url: url_for(action: "start", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
+    <fieldset>
+        <legend>Please select your difficulty</legend>
+        <%= form.submit "Easy", {:name => "difficulty"} %>
+        <%= form.submit "Medium", {:name => "difficulty"} %>
+        <%= form.submit "Hard", {:name => "difficulty"} %>
+    </fieldset>
 <% end %>

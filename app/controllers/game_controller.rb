@@ -16,7 +16,7 @@ class GameController < ApplicationController
   end
 
   def guess
-    @guess = params[:guess]
+    @guess = params[:guess].downcase
    
     @game = Game.resume StatePersistence.decrypt params[:state]
     @game.take_turn @guess

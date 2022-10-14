@@ -15,7 +15,14 @@
 <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+  <body class="<%= cookies[:theme] %>">
+
+    <% if cookies[:theme] == "light" %>
+      <%= link_to "go dark", root_path(theme: "dark") %>
+    <% else %>
+      <%= link_to "go light", root_path(theme: "light") %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

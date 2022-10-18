@@ -1,12 +1,25 @@
-<h1>Welcome to Wordle</h1>
 
+<div class="row text-center">
+    <h1>Welcome to Wordle</h1>
+</div>
 
-<%# <% game.start %>
-<%= form_with(url: url_for(action: "start", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
-    <fieldset>
-        <legend>Please select your difficulty</legend>
-        <%= form.submit "Easy", {:name => "difficulty"} %>
-        <%= form.submit "Medium", {:name => "difficulty"} %>
-        <%= form.submit "Hard", {:name => "difficulty"} %>
-    </fieldset>
-<% end %>
+<div class="row callout primary text-center">
+        <h5>How to play.</h5>
+        <p>Guess a five-letter word in 5 attempts. Each time you guess, you are told which of your chosen letters are in the target word, and whether they are in the right place.</p>
+        <p><span style="color: green">Green</span> = this letter is in this position</p>
+        <p><span style="color: orange">Orange</span> = this letter is in the target word but not this position</p>
+        <p><span style="color: red">Red</span> = this letter is either not in the target word, or is not in the target</p>
+</div>
+
+<div class="row text-center">
+    <%= form_with(url: url_for(action: "start", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
+        <fieldset>
+            <legend>Please select your difficulty</legend>
+            <%= form.submit "Easy", {:name => "difficulty", :class => "large success button"} %>
+            <%= form.submit "Medium", {:name => "difficulty", :class => "large button"} %>
+            <%= form.submit "Hard", {:name => "difficulty", :class => "large alert button"} %>
+            <p class="help-text" id="HelpText">Easy: 3 letter word, Medium: 5 letter word, Hard: 10 letter word</p>
+        </fieldset>
+    <% end %>
+</div>
+

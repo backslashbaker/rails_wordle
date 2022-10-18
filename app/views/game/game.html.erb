@@ -1,19 +1,27 @@
 <%= @game.state.to_json %>
 
-<% if @game.won? %>
-    <h1>You've won, the correct word was <%= @guess %></h1>
-    <a href='/'>play again</a>
-    <% elsif @game.finished? %>
-    <h1>You've lost, the correct word was <%= @game.state.target_word %></h1>
-    <a href='/'>play again</a>
-<% else %>
+<div class="row text-center">
+    <% if @game.won? %>
+        <h3>You've won, the correct word was <strong><%= @guess %></strong></h3>
+        <a href='/' class="button">play again</a>
+        <% elsif @game.finished? %>
+        <h3>You've lost, the correct word was <strong><%= @game.state.target_word %></strong></h3>
+        <a href='/' class="button">play again</a>
+    <% else %>
+</div>
 
-<%= form_with(url: url_for(action: "guess", controller: 'game'), method: "post", data: {turbo: false} ) do |form| %>
-    <%= form.label :guess, "Your Guess:" %>
-    <%= form.text_field :guess %>
-    <%= form.hidden_field :state, value: @state %>
-    <%= form.submit "Submit" %>
-<% end %>
+<div class="row">
+    <div >
+        <%= form_with(url: url_for(action: "guess", controller: 'game'), method: "post", data: {turbo: false}, :class => "input-group" ) do |form| %>
+            <%= form.label :guess, "Your Guess:", :class => "input-group-label" %>
+            <%= form.text_field :guess, {:class => "input-group-field", :type => "text" } %>
+            <%= form.hidden_field :state, value: @state %>
+            <div class="input-group-button">
+                <%= form.submit "Submit", {:class => "button", :value => "submit"} %>
+            </div>
+        <% end %>
+    </div>
+</div>
 
 <% case @error %>
     <% when Game::IncorrectWord %>
@@ -29,10 +37,9 @@
             <% end %>
         <% end %>
     </h1>
-        <%= @error.outcome %>
+        <%# <%= @error.outcome %>
     <% else %>
         <%= @error %>
 <% end %>
 
 <% end %>
-

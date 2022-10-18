@@ -36,3 +36,4 @@
 
 # VIM swp files
 .swp
+.env

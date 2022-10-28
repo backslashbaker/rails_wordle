@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'game'
 require 'messages'
 
 class GameController < ApplicationController
   class StatePersistence
-
     def self.encrypt(message)
       crypt = ActiveSupport::MessageEncryptor.new Rails.application.config.state_secret
       crypt.encrypt_and_sign message
@@ -17,7 +18,7 @@ class GameController < ApplicationController
 
   def guess
     @guess = params[:guess].downcase
-   
+
     @game = Game.resume StatePersistence.decrypt params[:state]
     @game.take_turn @guess
   rescue Game::InvalidWord
@@ -30,13 +31,11 @@ class GameController < ApplicationController
     render :game
   end
 
-  def home
-  end
+  def home; end
 
   def start
     @game = Game.start(params[:difficulty].downcase.to_sym)
     @state = StatePersistence.encrypt(@game.state.to_json)
     render :game
   end
-
 end
